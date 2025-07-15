@@ -1,0 +1,1 @@
+package syngx_admin_panel_configs

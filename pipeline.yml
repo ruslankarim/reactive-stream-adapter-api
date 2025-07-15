@@ -1,0 +1,98 @@
+### Настройки MAVEN ###
+maven:
+  # Идентификатор файла в folder, который следует подключить через configFileProvider. Рекомендуемый вариант подключения
+  settings_id: "maven-settings"
+  # Maven настроенный в Jenkins. Доступные версии можно посмотреть в Pipeline Syntax - snippet generator - tool - Maven
+  home: "Maven 3.8.1"
+  # JDK настроенный в Jenkins. Доступные версии можно посмотреть в Pipeline Syntax - snippet generator - tool - JDK
+  jdk: "jdk-11.0.10_linux"
+  # испльзовать ли maven для загрузки дистрибутива в nexus, по умолчанию false
+  # чтобы использовать этот параметр, требуется завести креденшлы nexus-sbrf в settings
+  use_for_deploy: true
+
+### Свойства вашего дистрибутива ###
+fp:
+  artifactId: "reactive-stream-adapter-api" ## КЭ для которого есть область в  https://sbrf-nexus.sigma.sbrf.ru/nexus/
+  # Maven version для артефакта инсталляционного пакета. К нему будет добавляться номер сборки, т.о. что для билда с номеро 123 в Nexus артефакт будет выгружен с версией D-01.000.00-123
+  version: "${RELEASE_VERSION}"
+  # Добавляет постфикс к версии дистрибутива в формате version-BUILD_NUMBER_version_meta, например D-01.000.00-472_SECTOR_1
+  version_meta: ""
+  # id репозитория Nexus в который выгружается инсталляционный пакет. Один на все проекты. Менять не нужно
+  repo: "sbt_PROD"
+  # Maven groupId для артефакта инсталляционного пакета.
+  groupId: "sbt_PROD.CI90000702_synd"
+  # если true, то помимо обычного дистрибутива будут выложены еще два classifier-а - owned-distrib и party-distrib
+  # также в pom.xml будет добавлена информация о 3rd-party зависимостях
+  extract_3rd_parties: false
+  component_code: synd
+
+distribution:
+  - url: "https://portal.works.prod.sbt/ssd/tools/nexus-cd/repository/sbt_prod"
+    # Id сервера из settings.xml
+    serverId: "NexusId"
+
+qgm:
+  repository: "sbt_PROD" # имя репозитория Nexus
+  creds: "sa-synd"
+
+### Ссылки на сборочные Jenkins-файлы ###
+jenkinsfiles:
+  - name: "reactive-stream-adapter-api" # любое
+    repo: "ssh://git@portal.works.prod.sbt:7998/synd/reactive-stream-adapter-api.git" # url без хоста
+    branch: "${CONFIG_BRANCH}" # ветка сборки
+    jenkinsfile_name: "Jenkinsfile.groovy"
+    issue_pattern: '^(?i)(SYND|STS|SEGR)-[0-9]+'
+
+extensions:
+  - name: appSec
+    repo: ssh://git@portal.works.prod.sbt:7998/cije/jenkinsfiles.git
+    branch: master
+    script_path: "./appSec.groovy"
+    emails: segr2@sbertech.ru
+    stage: upload
+    phase: after
+  - name: generateSBOMTrivy
+    args:
+      - "--license-full"
+    trivy: trivy_0.59.1
+    cyclonedx_cli: cyclonedx-linux-x64-0.27.2
+disabled_extensions:
+  - securityChecks
+
+### Настройки DevSecOps ###
+### Общая информация о команде ###
+team:
+  - {
+    # код команды в МУСе
+    mus_code: "00005158",
+    # название команды в МУСе
+    mus_name: "Synapse. ЕФС. Маршрутизатор Сегмента",
+    # Почтовый адрес лица для уведомлений с результатами сканирования
+    # !!! Почта должна быть валидной для текущего домена, чтобы корректно определить пользователя, которому впоследствии предоставятся права на доступ к АС в SALM !!!
+    # !!! Возможно указание нескольких почт через знаки ";" или "," внутри одной строки !!!
+    # Пример: "user1@sberbank.ru; user2@sberbank.ru, user3@sberbank.ru"
+    mus_po_mail: "segr2@sbertech.ru",
+  }
+
+app:
+  # конфигурационный элемент КЭ приложения / модуля ПО в Service Manager , под которым проходят релизы (не указывать КЭ ИТ-услуги, а также необходимо проверить наличие КЭ в справочнике АС, доступен только в домене Sigma)
+  sm_id: ""
+  # название КЭ приложения / модуля ПО в Service Manager
+  sm_name: ""
+
+#sast_cx:
+#  # сredentials id в Jenkins для учетной записи Checkmarx, под которой будет проводиться сканирование
+#  creds_id: "sa-synd"
+#  # проектная область в JIRA для заведения и синхронизации дефектов
+#  jira_area: ""
+#  # маски файлов и директорий для включения (**/*) в скан и исключения (!**/*) из скана.
+#  # Пример: "!**/utils/**/*.xml" - исключение всех xml файлов в папке utils
+#  masks: "!**/vendor/**"
+#  # id профиля сканирования, по умолчанию 100000. 14 - для мобильного приложения
+#  preset_id: "100000"
+#  wait_qg: "2"
+
+#oss:
+#  # Маски для исключения из сканирования разделяются "," или ";"
+#  # Пример: "**/utils/**/*.xml"; "**/*test*/**; **/*.txt, .git/**"
+#  excludes: "**/vendor/**"
