@@ -1,10 +1,14 @@
 syntax = "proto3";
 
-package synes.adapter.v1;
+package ru.sbt.ss.event.adapter;
 
 import "io/cloudevents/v1/CloudEvent.proto";
 
 option go_package = "api/synes_adapter/v1;synes_adapter_v1";
+option java_multiple_files = true;
+option java_package = "ru.sbt.ss.event";
+option java_outer_classname = "ControlPlaneServiceApi";
+
 
 service ControlPlaneService {
   rpc StreamEvents (stream io.cloudevents.v1.CloudEvent) returns (stream io.cloudevents.v1.CloudEvent) {

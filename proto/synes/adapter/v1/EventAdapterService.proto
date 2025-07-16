@@ -4,7 +4,11 @@ import "io/cloudevents/v1/CloudEvent.proto";
 
 option go_package = "api/synes_adapter/v1;synes_adapter_v1";
 
-package synes.adapter.v1;
+option java_multiple_files = true;
+option java_package = "ru.sbt.ss.event.adapter";
+option java_outer_classname = "EventAdapterServiceApi";
+
+package ru.sbt.ss.event.adapter;
 
 service PublishService {
     rpc Connect (PublishSettings) returns (Status) {}

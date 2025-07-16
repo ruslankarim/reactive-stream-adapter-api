@@ -20,7 +20,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ControlPlaneService_StreamEvents_FullMethodName = "/synes.adapter.v1.ControlPlaneService/StreamEvents"
+	ControlPlaneService_StreamEvents_FullMethodName = "/ru.sbt.ss.event.adapter.ControlPlaneService/StreamEvents"
 )
 
 // ControlPlaneServiceClient is the client API for ControlPlaneService service.
@@ -101,7 +101,7 @@ type ControlPlaneService_StreamEventsServer = grpc.BidiStreamingServer[v1.CloudE
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ControlPlaneService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "synes.adapter.v1.ControlPlaneService",
+	ServiceName: "ru.sbt.ss.event.adapter.ControlPlaneService",
 	HandlerType: (*ControlPlaneServiceServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{

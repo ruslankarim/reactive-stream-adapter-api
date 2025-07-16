@@ -20,9 +20,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	PublishService_Connect_FullMethodName    = "/synes.adapter.v1.PublishService/Connect"
-	PublishService_Publish_FullMethodName    = "/synes.adapter.v1.PublishService/Publish"
-	PublishService_Disconnect_FullMethodName = "/synes.adapter.v1.PublishService/Disconnect"
+	PublishService_Connect_FullMethodName    = "/ru.sbt.ss.event.adapter.PublishService/Connect"
+	PublishService_Publish_FullMethodName    = "/ru.sbt.ss.event.adapter.PublishService/Publish"
+	PublishService_Disconnect_FullMethodName = "/ru.sbt.ss.event.adapter.PublishService/Disconnect"
 )
 
 // PublishServiceClient is the client API for PublishService service.
@@ -169,7 +169,7 @@ func _PublishService_Disconnect_Handler(srv interface{}, ctx context.Context, de
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var PublishService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "synes.adapter.v1.PublishService",
+	ServiceName: "ru.sbt.ss.event.adapter.PublishService",
 	HandlerType: (*PublishServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -193,8 +193,8 @@ var PublishService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	SubscribeService_Subscribe_FullMethodName = "/synes.adapter.v1.SubscribeService/Subscribe"
-	SubscribeService_Commit_FullMethodName    = "/synes.adapter.v1.SubscribeService/Commit"
+	SubscribeService_Subscribe_FullMethodName = "/ru.sbt.ss.event.adapter.SubscribeService/Subscribe"
+	SubscribeService_Commit_FullMethodName    = "/ru.sbt.ss.event.adapter.SubscribeService/Commit"
 )
 
 // SubscribeServiceClient is the client API for SubscribeService service.
@@ -318,7 +318,7 @@ func _SubscribeService_Commit_Handler(srv interface{}, ctx context.Context, dec 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var SubscribeService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "synes.adapter.v1.SubscribeService",
+	ServiceName: "ru.sbt.ss.event.adapter.SubscribeService",
 	HandlerType: (*SubscribeServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
