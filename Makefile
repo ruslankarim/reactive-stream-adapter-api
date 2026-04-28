@@ -1,6 +1,6 @@
 PROTO_DIR=proto
 GEN_DIR=grpc
-GOOGLEAPIS_DIR=third_party/googleapis
+GOOGLEAPIS_DIR=googleapis
 
 GIT_HASH?=$(shell git rev-parse --short HEAD)
 GIT_TAG?=$(shell git tag | tail -1)
