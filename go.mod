@@ -1,4 +1,4 @@
-module portal.works.prod.sbt/ssd/tools/sc/synd/reactive-stream-adapter-api
+module portal.works.prod.sbt/ssd/tools/sc/synes/reactive-stream-adapter-api
 
 go 1.24.2
 
